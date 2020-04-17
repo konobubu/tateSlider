@@ -12,7 +12,7 @@ $(function(){
         var $timer = '';
         var $slideCount = $slideImgs.length;
         console.log($slideCount);
-        var isTouch = ('ontouchstart' in window);
+        var isTouch = ('ontouchstart' in window); //タッチできるときtrue
         $slideGroups.on('touchstart', TouchStart); //指が触れたら呼び出す
         $slideGroups.on('touchmove', TouchMove); //指が動いたら呼び出す
         $slideGroups.on('touchend', TouchEnd); //指が離れたら呼び出す
@@ -53,9 +53,9 @@ $(function(){
             // $start = getPosition(event);
             event.preventDefault();
             $direction = ''; //一度リセットする
-            this.pageY = (isTouch ? getPosition(event) : event.pageY); //ここのthisは$slideImgs
+            this.pageY = (isTouch ? getPosition(event) : event.pageY); //ここのthisは$slideGroups
             
-            this.top = $(this).position().top;
+            this.top = parseInt($(this).position().top); //topのcssの値
             this.touched = true;
         }
 
@@ -76,20 +76,6 @@ $(function(){
             $(this).css({top: this.top});
             // console.log(this.top);
             this.pageY = (isTouch ? getPosition(event) : e.pageY);
-
-            // if($start - getPosition(event) > 70){
-            //     $direction = "down";
-            // }else if ($start - getPosition(event) < -70){
-            //     $direction = "up";
-            // }
-
-            // if(this.top < 0 && this.top > topMax){
-            //     $(this).css({top:this.top});
-            // } else if(this.top >= 0) {
-            //     $(this).css({top:'0'});
-            // } else if(this.top <= topMax) {
-            //     $(this).css({top:(topMax)});
-            // }
         }
 
         function TouchEnd(event){
@@ -113,15 +99,6 @@ $(function(){
                 }
             }
         }
-
-        // $nav.on('click', 'a', function(event){
-        //   event.preventDefault(); //本来のaタグの挙動を消す
-        //   if($(this).hasClass("slide-prev")){
-        //     changeSlide($currentIndex - 1);
-        //   }else{
-        //     changeSlide($currentIndex + 1);
-        //   }
-        // });
 
         $indicator.on('click', 'a', function(event){
             event.preventDefault();
@@ -147,7 +124,5 @@ $(function(){
         }
 
         changeSlide($currentIndex);
-
-
     })
 });

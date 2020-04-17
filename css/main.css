@@ -63,10 +63,11 @@
 
 .sp-top-article{
   position: absolute;
-  bottom: 0;
+  bottom: 25px;
   background-color: rgba( 0, 0, 0, 0 );
   color: #fff;
   font-weight: bold;
+  font-size: 8rem;
   padding: 2%;
   text-shadow: black 3px 3px 15px;
 }
