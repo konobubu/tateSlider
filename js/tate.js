@@ -53,7 +53,7 @@ $(function(){
             // $start = getPosition(event);
             event.preventDefault();
             $direction = ''; //一度リセットする
-            this.pageY = (isTouch ? getPosition(event) : e.pageY); //ここのthisは$slideImgs
+            this.pageY = (isTouch ? getPosition(event) : event.pageY); //ここのthisは$slideImgs
             
             this.top = $(this).position().top;
             this.touched = true;
@@ -65,11 +65,11 @@ $(function(){
             }
             event.preventDefault();
             this.top = this.top - (this.pageY - (isTouch ? getPosition(event) : e.pageY));
-            this.g = this.pageY - (isTouch ? getPosition(event) : e.pageY);
+            this.pos = this.pageY - (isTouch ? getPosition(event) : e.pageY);
             console.log(this.g);
-            if(this.g < -10 ){
+            if(this.pos < -10 ){
                 $direction = "up"
-            }else if (this.g > 10){
+            }else if (this.pos > 10){
                 $direction = "down"
             }
 
