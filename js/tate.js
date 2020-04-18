@@ -66,12 +66,13 @@ $(function(){
             event.preventDefault();
             this.top = this.top - (this.pageY - (isTouch ? getPosition(event) : event.pageY));
             this.pos = this.pageY - (isTouch ? getPosition(event) : event.pageY);
-            console.log(this.g);
+            console.log(this.pos);
             if(this.pos < -10 ){
                 $direction = "up"
             }else if (this.pos > 10){
                 $direction = "down"
             }
+            console.log($direction);
 
             $(this).css({top: this.top});
             // console.log(this.top);
