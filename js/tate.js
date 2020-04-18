@@ -6,6 +6,10 @@ $(function(){
         var $indicator = $container.find('#indicator');
         var $indicatorHTML = '';
         var $direction = '';
+        var $pageY = '';
+        var $top = '';
+        var $pos = '';
+        var $touched = false;
         var $currentIndex = 0;
         var $duration = 100;
         var $interval = 10000;
@@ -50,40 +54,35 @@ $(function(){
         };
 
         function TouchStart(event){ //指が触れたら動く関数
-            // $start = getPosition(event);
-            event.preventDefault();
+            event.preventDefault(); //本来の挙動をカット
             $direction = ''; //一度リセットする
-            this.pageY = (isTouch ? getPosition(event) : event.pageY); //ここのthisは$slideGroups
-            
-            this.top = parseInt($(this).position().top); //topのcssの値
-            this.touched = true;
+            $pageY = (isTouch ? getPosition(event) : event.pageY); //ここのthisは$slideGroups
+            $top = parseInt($(this).position().top); //topのcssの値
+            $touched = true;
         }
 
         function TouchMove(event){ //指を動かしたら動く関数
-            if(!this.touched){
+            if(!$touched){
                 return;
             }
             event.preventDefault();
-            this.top = this.top - (this.pageY - (isTouch ? getPosition(event) : event.pageY));
-            this.pos = this.pageY - (isTouch ? getPosition(event) : event.pageY);
-            console.log(this.pos);
-            if(this.pos < -10 ){
+            $top = $top - ($pageY - (isTouch ? getPosition(event) : event.pageY));
+            $pos = $pageY - (isTouch ? getPosition(event) : event.pageY);
+            console.log($pos);
+            if($pos < -10 ){
                 $direction = "up"
-            }else if (this.pos > 10){
+            }else if ($pos > 10){
                 $direction = "down"
             }
             console.log($direction);
 
-            $(this).css({top: this.top});
-            // console.log(this.top);
-            this.pageY = (isTouch ? getPosition(event) : event.pageY);
+            $(this).css({top: $top});
+            console.log($top);
+            $pageY = (isTouch ? getPosition(event) : event.pageY);
         }
 
         function TouchEnd(event){
             event.preventDefault(); //本来のaタグの挙動を削除
-            if (!this.touched) {
-                return;
-            }
 
             if($direction === "down"){
                 if($currentIndex === $slideCount-1){
@@ -99,6 +98,8 @@ $(function(){
                     changeSlide($currentIndex - 1);
                 }
             }
+
+            $touched = false;
         }
 
         $indicator.on('click', 'a', function(event){
