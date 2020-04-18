@@ -64,8 +64,8 @@ $(function(){
                 return;
             }
             event.preventDefault();
-            this.top = this.top - (this.pageY - (isTouch ? getPosition(event) : e.pageY));
-            this.pos = this.pageY - (isTouch ? getPosition(event) : e.pageY);
+            this.top = this.top - (this.pageY - (isTouch ? getPosition(event) : event.pageY));
+            this.pos = this.pageY - (isTouch ? getPosition(event) : event.pageY);
             console.log(this.g);
             if(this.pos < -10 ){
                 $direction = "up"
@@ -75,7 +75,7 @@ $(function(){
 
             $(this).css({top: this.top});
             // console.log(this.top);
-            this.pageY = (isTouch ? getPosition(event) : e.pageY);
+            this.pageY = (isTouch ? getPosition(event) : event.pageY);
         }
 
         function TouchEnd(event){
